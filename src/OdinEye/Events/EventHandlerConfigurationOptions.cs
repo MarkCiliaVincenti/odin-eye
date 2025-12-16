@@ -1,22 +1,18 @@
-﻿namespace OdinEye.Events
-{
-    using Middlewares;
+﻿namespace OdinEye.Events;
 
-    public class EventHandlerConfigurationOptions
+using Middlewares;
+
+public class EventHandlerConfigurationOptions
+{
+    public IEventMiddleware RootMiddleware { get; private set; }
+    public IEventMiddleware LastMiddleware { get; private set; }
+    
+    public EventHandlerConfigurationOptions AddMiddleware(EventMiddleware eventMiddleware)
     {
-        public IEventMiddleware RootMiddleware { get; private set; }
-        public IEventMiddleware LastMiddleware { get; private set; }
+        RootMiddleware ??= eventMiddleware;
         
-        public EventHandlerConfigurationOptions AddMiddleware(EventMiddleware eventMiddleware)
-        {
-            if (RootMiddleware == null)
-            {
-                RootMiddleware = eventMiddleware;
-            }
-            
-            LastMiddleware?.SetNext(eventMiddleware);
-            LastMiddleware = eventMiddleware;
-            return this;
-        }
+        LastMiddleware?.SetNext(eventMiddleware);
+        LastMiddleware = eventMiddleware;
+        return this;
     }
 }

@@ -1,16 +1,15 @@
-﻿namespace OdinEye.Http.Api.Controllers
+﻿namespace OdinEye.Http.Api.Controllers;
+
+using Extensions;
+using WebSocketSharp.Server;
+
+public class PlayersController : IController
 {
-    using Extensions;
-    using WebSocketSharp.Server;
+    public string Route => "/players";
 
-    public class PlayersController : IController
+    public void OnGet(HttpRequestEventArgs requestArguments)
     {
-        public string Route => "/players";
-
-        public void OnGet(HttpRequestEventArgs requestArguments)
-        {
-            var peers = ZNet.instance.GetAllPeers();
-            requestArguments.Response.Ok(peers.ToDto());
-        }
+        var peers = ZNet.instance.GetAllPeers();
+        requestArguments.Response.Ok(peers.ToDto());
     }
 }

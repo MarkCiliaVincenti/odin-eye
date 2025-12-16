@@ -1,9 +1,8 @@
-﻿namespace OdinEye.Models.Api
+﻿namespace OdinEye.Models.Api;
+
+public class GlobalKey
 {
-    public class GlobalKey
-    {
-        public string Name { get; set; }
-        
-        public string Value { get; set; }
-    }
+    public string Name { get; set; }
+    
+    public string Value { get; set; }
 }

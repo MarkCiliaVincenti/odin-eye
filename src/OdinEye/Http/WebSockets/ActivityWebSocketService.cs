@@ -1,7 +1,6 @@
-﻿namespace OdinEye.Http.WebSockets
-{
-    using WebSocketSharp.Server;
+﻿namespace OdinEye.Http.WebSockets;
 
-    public class ActivityWebSocketService : WebSocketBehavior
-    { }
-}
+using WebSocketSharp.Server;
+
+public class ActivityWebSocketService : WebSocketBehavior
+{ }

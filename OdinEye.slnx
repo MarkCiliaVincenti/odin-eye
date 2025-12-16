@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/OdinEye.Models/OdinEye.Models.csproj" />
+  <Project Path="src/OdinEye/OdinEye.csproj" Id="6bc0320e-49f2-4a19-be85-e909d6852c1c" />
+</Solution>

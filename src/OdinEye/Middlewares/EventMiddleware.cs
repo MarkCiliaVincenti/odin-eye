@@ -1,29 +1,28 @@
-﻿namespace OdinEye.Middlewares
+﻿namespace OdinEye.Middlewares;
+
+using Models.Proto;
+
+public delegate void MiddlewareDelegate(GameEvent gameEvent);
+
+public abstract class EventMiddleware : IEventMiddleware
 {
-    using Models.Proto;
-
-    public delegate void MiddlewareDelegate(GameEvent gameEvent);
+    private MiddlewareDelegate next;
     
-    public abstract class EventMiddleware : IEventMiddleware
+    public IEventMiddleware SetNext(EventMiddleware handler)
     {
-        private MiddlewareDelegate next;
-        
-        public IEventMiddleware SetNext(EventMiddleware handler)
-        {
-            next = handler.InvokeWithNextDelegate;
-            return handler;
-        }
+        next = handler.InvokeWithNextDelegate;
+        return handler;
+    }
 
-        public void Handle(GameEvent gameEvent)
-        {
-            Invoke(gameEvent, next);
-        }
+    public void Handle(GameEvent gameEvent)
+    {
+        Invoke(gameEvent, next);
+    }
 
-        protected abstract void Invoke(GameEvent gameEvent, MiddlewareDelegate next);
-        
-        private void InvokeWithNextDelegate(GameEvent gameEvent)
-        {
-            Invoke(gameEvent, next ?? (_ => { }));
-        }
+    protected abstract void Invoke(GameEvent gameEvent, MiddlewareDelegate next);
+    
+    private void InvokeWithNextDelegate(GameEvent gameEvent)
+    {
+        Invoke(gameEvent, next ?? (_ => { }));
     }
 }

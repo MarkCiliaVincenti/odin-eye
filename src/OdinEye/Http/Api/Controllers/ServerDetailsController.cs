@@ -1,23 +1,22 @@
-﻿namespace OdinEye.Http.Api.Controllers
+﻿namespace OdinEye.Http.Api.Controllers;
+
+using Extensions;
+using Models.Api;
+using WebSocketSharp.Server;
+
+public class ServerDetailsController : IController
 {
-    using Extensions;
-    using Models.Api;
-    using WebSocketSharp.Server;
+    public string Route => "/serverDetails";
 
-    public class ServerDetailsController : IController
+    public void OnGet(HttpRequestEventArgs requestArguments)
     {
-        public string Route => "/serverDetails";
-
-        public void OnGet(HttpRequestEventArgs requestArguments)
+        var serverDetails = new ServerDetails
         {
-            var serverDetails = new ServerDetails
-            {
-                MaxNumberOfPlayers = ZNet.ServerPlayerLimit,
-                GameVersion = Version.GetVersionString(),
-                SteamAppId = SteamManager.APP_ID.ToString()
-            };
-            
-            requestArguments.Response.Ok(serverDetails);
-        }
+            MaxNumberOfPlayers = ZNet.ServerPlayerLimit,
+            GameVersion = Version.GetVersionString(),
+            SteamAppId = SteamManager.APP_ID.ToString()
+        };
+        
+        requestArguments.Response.Ok(serverDetails);
     }
 }

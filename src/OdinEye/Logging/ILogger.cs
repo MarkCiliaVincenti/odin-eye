@@ -1,17 +1,16 @@
-﻿namespace OdinEye.Logging
+﻿namespace OdinEye.Logging;
+
+public interface ILogger
 {
-    public interface ILogger
-    {
-        void LogFatal(object data);
+    void LogFatal(object data);
 
-        void LogError(object data);
+    void LogError(object data);
 
-        void LogWarning(object data);
+    void LogWarning(object data);
 
-        void LogMessage(object data);
+    void LogMessage(object data);
 
-        void LogInfo(object data);
+    void LogInfo(object data);
 
-        void LogDebug(object data);
-    }
+    void LogDebug(object data);
 }

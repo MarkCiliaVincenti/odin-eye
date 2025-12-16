@@ -1,11 +1,10 @@
-﻿namespace OdinEye.Middlewares
+﻿namespace OdinEye.Middlewares;
+
+using Models.Proto;
+
+public interface IEventMiddleware
 {
-    using Models.Proto;
+    IEventMiddleware SetNext(EventMiddleware handler);
 
-    public interface IEventMiddleware
-    {
-        IEventMiddleware SetNext(EventMiddleware handler);
-
-        void Handle(GameEvent gameEvent);
-    }
+    void Handle(GameEvent gameEvent);
 }

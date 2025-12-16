@@ -1,28 +1,20 @@
-﻿namespace OdinEye.Middlewares
+﻿namespace OdinEye.Middlewares;
+
+using Logging;
+using Models.Proto;
+using System;
+
+public class ExceptionHandlerMiddleware(ILogger logger) : EventMiddleware
 {
-    using Logging;
-    using Models.Proto;
-    using System;
-
-    public class ExceptionHandlerMiddleware : EventMiddleware
+    protected override void Invoke(GameEvent gameEvent, MiddlewareDelegate next)
     {
-        private readonly ILogger logger;
-
-        public ExceptionHandlerMiddleware(ILogger logger)
+        try
         {
-            this.logger = logger;
+            next(gameEvent);
         }
-        
-        protected override void Invoke(GameEvent gameEvent, MiddlewareDelegate next)
+        catch (Exception ex)
         {
-            try
-            {
-                next(gameEvent);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError($"Error while handling game event: {ex.Message}");
-            }
+            logger.LogError($"Error while handling game event: {ex.Message}");
         }
     }
 }
